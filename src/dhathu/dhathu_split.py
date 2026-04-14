@@ -46,17 +46,24 @@ def create_lakaar_excel_workbook(dhathu_object_dict, ):
     # and copying them to excel manually. This can be automated in the future.
     pass
 
+def create_kridanta_excel_workbook(dhathu_object_dict):
+    #TODO : Create an excel workbook with each sheet representing a Kridanta form
+    #       and containing the corresponding dhatus and all its kridantas
+    # Currently creating a separate csv for each kridanta form, 
+    # and copying them to excel manually. This can be automated in the future.
+    pass
+
 
 if __name__ == "__main__":
-
     base_file_path = os.path.expanduser("~/Documents/git_projects_personal/data/dhatu/data.txt")
     dhathu_object_dict = populate_dhathu_object_dict(base_file_path)
     dump_dhathu_base_csv(dhathu_object_dict)
-    # for form in Dhathu.DHATHU_FORM_NAMES:
-    #     file_path =  os.path.expanduser(f"~/Documents/git_projects_personal/data/dhatu/dhatuforms_vidyut_{form}.txt")
-    #     populate_dhathu_lakaar(dhathu_object_dict, form, file_path)
-    #     dump_dhathu_lakaar_csv(dhathu_object_dict, form)
-    # create_lakaar_excel_workbook(dhathu_object_dict)
+
+    for form in Dhathu.DHATHU_FORM_NAMES:
+        file_path =  os.path.expanduser(f"~/Documents/git_projects_personal/data/dhatu/dhatuforms_vidyut_{form}.txt")
+        populate_dhathu_lakaar(dhathu_object_dict, form, file_path)
+        dump_dhathu_lakaar_csv(dhathu_object_dict, form)
+    create_lakaar_excel_workbook(dhathu_object_dict)
 
     for kridanta in Dhathu.DHATHU_KRIDANTA_FORM_NAMES:
         file_path =  os.path.expanduser(f"~/Documents/git_projects_personal/data/dhatu/dhatuforms_vidyut_{kridanta.replace('kridanta', 'krut')}.txt")
