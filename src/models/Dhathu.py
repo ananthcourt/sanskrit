@@ -49,7 +49,7 @@ class Dhathu:
 
     @classmethod
     def kridanta_csv_column_names(cls):
-        return "id;chapter;index;name;kridanta_form_name;pu_lingam;stri_lingam;napu_lingam"
+        return "id,chapter,index,name,kridanta_form_name,word,pu_lingam,stri_lingam,napu_lingam"
     
     def to_base_csv_string(self):
         return f"{self.id};{self.chapter};{self.index};{self.name};{self.aupadeshik};{self.ganam};{self.padam};{self.settva};{self.karma};{self.kaumudi_dhatu_number};{self.meaning};{self.english_meaning};{self.hindi_meaning}"
@@ -59,7 +59,7 @@ class Dhathu:
         return f"{self.id};{self.chapter};{self.index};{self.name};{dhathu_rupa.lakaar_name};{dhathu_rupa.value}"
 
     def to_kridanta_csv_string(self, name, kridanta_rupa):
-        return f"{self.id};{self.chapter};{self.index};{self.name};{kridanta_rupa.name};{kridanta_rupa.value}"
+        return f"{self.id},{self.chapter},{self.index},{self.name},{kridanta_rupa.name},{kridanta_rupa.value}"
     
     def _get_karma(self, karma_letter):
         karma_dict = {
@@ -180,8 +180,15 @@ class DhathuKridantaForm:
         self.form_name = self._get_kridanta_name(form_code)
         self.set_kridanta_dict(kridanta_dict)
 
-    def set_kridanta_dict(self, lakaar_dict):
-        self.kridanta_dict = {name: Kridanta_Rupa(name, value) for name, value in lakaar_dict.items()}
+    def set_kridanta_dict(self, kridanta_dict):
+        self.kridanta_dict = {}
+        for name, value in kridanta_dict.items():
+            if ";" in value:
+                entries = value.split(";")
+            else:
+                entries = [value]
+            for entry in entries:
+                self.kridanta_dict[f"{name}_{entries.index(entry) + 1}"] = Kridanta_Rupa(name, entry)
 
     @classmethod
     def _get_kridanta_name(self, form_code):
