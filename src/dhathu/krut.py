@@ -4,7 +4,7 @@ file_path = r"/Users/srihitagollapudi/Documents/Sanskrit_project/data/dhatu/"
 
 file_name_lst = ["dhatuforms_vidyut_shuddha_krut","dhatuforms_vidyut_nich_krut","dhatuforms_vidyut_san_krut","dhatuforms_vidyut_yang_krut","dhatuforms_vidyut_yangluk_krut"]
 
-def krutha_to_csv(file_path,file_name):
+def krutha_to_excel(file_path,file_name):
 
     json_data = "/Users/srihitagollapudi/Documents/Sanskrit_project/data/dhatu/data.txt"
     with open(json_data, "r", encoding="utf-8") as f:
@@ -50,7 +50,7 @@ with pd.ExcelWriter("/Users/srihitagollapudi/Documents/Sanskrit_project/sanskrit
     for file_name in file_name_lst:
 
         path = file_path + file_name + ".txt"
-        df = krutha_to_csv(path,file_name)
+        df = krutha_to_excel(path,file_name)
         df.to_excel(writer, sheet_name=file_name, index=False)
 
     
